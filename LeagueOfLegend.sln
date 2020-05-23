@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "League Of Legend", "League Of Legend\League Of Legend.csproj", "{69F2E491-B0AC-415C-88B6-C37468117B69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOfLegend.Website", "League Of Legend\LeagueOfLegend.Website.csproj", "{69F2E491-B0AC-415C-88B6-C37468117B69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOfLegend.DB", "LeagueOfLegend.DB\LeagueOfLegend.DB.csproj", "{3228A046-F5C6-4CD2-9041-FF2E5C78B4F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{69F2E491-B0AC-415C-88B6-C37468117B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69F2E491-B0AC-415C-88B6-C37468117B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69F2E491-B0AC-415C-88B6-C37468117B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3228A046-F5C6-4CD2-9041-FF2E5C78B4F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3228A046-F5C6-4CD2-9041-FF2E5C78B4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3228A046-F5C6-4CD2-9041-FF2E5C78B4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3228A046-F5C6-4CD2-9041-FF2E5C78B4F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

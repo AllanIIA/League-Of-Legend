@@ -1,0 +1,45 @@
+﻿body {
+}
+
+.container {
+    margin: 0 auto;
+    width: 500px;
+}
+
+.button-Home .findListBug {
+    color: white;
+    background-color: #D11206;
+    width: 100%;
+}
+
+.button-Home .addBug {
+    color: white;
+    background-color: limegreen;
+    width: 50%;
+    margin: 10px;
+}
+
+
+.center {
+    text-align: center;
+}
+
+
+.navbar {
+    background-color: rgb(69,129,142);
+    border-bottom: solid black 2px;
+    border-top: solid black 2px;
+}
+
+.collapse {
+    justify-content: center;
+}
+
+
+
+.dateNow {
+    text-align: center;
+    background-color: rgb(69,129,142);
+    border-bottom: solid black 2px;
+    border-top: solid black 2px;
+}
