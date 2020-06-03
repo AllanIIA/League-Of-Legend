@@ -11,7 +11,13 @@
 
 <h1> @Model.Title </h1>
 
-<a asp-controller="Champion" asp-action="Create" class="btn btn-primary">Ajouter un Champion</a>
+<div class="ajout">
+    <a asp-controller="Champion" asp-action="Create" class="btn btn-dark">
+        Ajouter un Champion
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </a>
+
+</div>
 
 <div class="text-center">
     <table class="table">

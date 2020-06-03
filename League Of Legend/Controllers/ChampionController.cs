@@ -39,11 +39,11 @@ namespace League_Of_Legend.Controllers
 
 
         
-            private List<SelectListItem> region()
+            private List<SelectListItem> champions()
         {
-            RegionContext severiteContext = new RegionContext(connectionString);
+            RegionContext regionContext = new RegionContext(connectionString);
 
-            List<Region> regions = severiteContext.GetAll();
+            List<Region> regions = regionContext.GetAll();
             List<SelectListItem> selectListItem = new List<SelectListItem>();
             foreach (Region region in regions)
             {
@@ -68,7 +68,7 @@ namespace League_Of_Legend.Controllers
         {
 
             ChampionViewModels model = new ChampionViewModels();
-            model.Region = region();
+            model.Region = champions();
 
             return View(model);
         }
@@ -80,7 +80,7 @@ namespace League_Of_Legend.Controllers
         {
             ChampionContext championContext = new ChampionContext(connectionString);
 
-            championModel.Region = region();
+            championModel.Region = champions();
 
             IActionResult retour = null;
             if (ModelState.IsValid)
@@ -118,7 +118,7 @@ namespace League_Of_Legend.Controllers
             championModel.IdentifiantRegion = champion.IdentifiantRegion;
             championModel.IdentifiantRole = champion.IdentifiantRole;
 
-            championModel.Region = region();
+            championModel.Region = champions();
 
             return View(championModel);
         }
@@ -127,7 +127,7 @@ namespace League_Of_Legend.Controllers
         public IActionResult Edit(ChampionViewModels championModel)
         {
             ChampionContext championContext = new ChampionContext(connectionString);
-            championModel.Region = region();
+            championModel.Region = champions();
             //Rajouter des contrôles dynamiques
 
             //if(bugModel.IdentifiantSeverite == 2)

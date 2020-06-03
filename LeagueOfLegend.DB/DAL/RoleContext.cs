@@ -6,18 +6,18 @@ using System.Text;
 
 namespace LeagueOfLegend.DB.DAL
 {
-    public class RegionContext
+    public class RoleContext
     {
         private string connectionString;
 
-        public RegionContext(string connectionString)
+        public RoleContext(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        public List<Region> GetAll()
+        public List<Role> GetAll()
         {
-            List<Region> regions = new List<Region>();
+            List<Role> roles = new List<Role>();
 
             using (MySqlConnection connection = new MySqlConnection())
             {
@@ -26,38 +26,38 @@ namespace LeagueOfLegend.DB.DAL
                 connection.Open();
 
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT Identifiant, Nom FROM region;";
+                command.CommandText = "SELECT Identifiant, Nom FROM role;";
 
                 MySqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    Region r = new Region();
+                    Role r = new Role();
                     r.Identifiant = reader.GetInt32("Identifiant");
                     r.Nom = reader.GetString("Nom");
-                    regions.Add(r);
+                    roles.Add(r);
                 }
 
             }
 
-            return regions;
+            return roles;
 
         }
         /// <summary>
-        /// Récupère une region en BDD 
+        /// Récupère un rôle en BDD 
         /// </summary>
-        /// <param name="identifiant">L'identifiant de la region</param>
-        /// <returns>La region correspondant à l'identifiant</returns>
-        public Region Get(int identifiant)
+        /// <param name="identifiant">L'identifiant du rôle</param>
+        /// <returns>Le rôle correspondant à l'identifiant</returns>
+        public Role Get(int identifiant)
         {
-            Region r = null;
+            Role r = null;
             using (MySqlConnection connection = new MySqlConnection())
             {
                 connection.ConnectionString = connectionString;
                 connection.Open();
 
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT Identifiant, Nom FROM region WHERE Identifiant = @Identifiant;";
+                command.CommandText = "SELECT Identifiant, Nom FROM role WHERE Identifiant = @Identifiant;";
 
                 command.Parameters.AddWithValue("Identifiant", identifiant);
 
@@ -65,10 +65,10 @@ namespace LeagueOfLegend.DB.DAL
 
                 while (reader.Read())
                 {
-                    r = new Region();
+                    r = new Role();
                     r.Identifiant = reader.GetInt32("Identifiant");
                     r.Nom = reader.GetString("Nom");
-
+                 
 
                 }
 
@@ -78,22 +78,22 @@ namespace LeagueOfLegend.DB.DAL
         }
 
         /// <summary>
-        /// Insère une Region en BDD
+        /// Insère un Rôle en BDD
         /// </summary>
-        /// <param name="role">La region à insérer</param>
+        /// <param name="role">Le rôle à insérer</param>
         /// <returns>un booléen indiquant si l'insertion s'est réalisée</returns>
-        public bool Insert(Region region)
+        public bool Insert(Role role)
         {
             int nbLignes = 0;
             using (MySqlConnection c = new MySqlConnection(connectionString))
             {
                 c.Open();
                 MySqlCommand command = c.CreateCommand();
-                command.CommandText = "INSERT INTO region(Identifiant, Nom) VALUE(@Identifiant, @Nom)";
+                command.CommandText = "INSERT INTO role(Identifiant, Nom) VALUE(@Identifiant, @Nom)";
 
-                command.Parameters.AddWithValue("Identifiant", region.Identifiant);
-                command.Parameters.AddWithValue("Nom", region.Nom);
-
+                command.Parameters.AddWithValue("Identifiant", role.Identifiant);
+                command.Parameters.AddWithValue("Nom", role.Nom);
+              
 
 
                 nbLignes = command.ExecuteNonQuery();
@@ -103,9 +103,9 @@ namespace LeagueOfLegend.DB.DAL
         }
 
         /// <summary>
-        /// Supprime une region en BDD
+        /// Supprime un rôle en BDD
         /// </summary>
-        /// <param name="identifiant">L'identifiant de la region à supprimer</param>
+        /// <param name="identifiant">L'identifiant du rôle à supprimer</param>
         /// <returns>un booléen indiquant si la suppression s'est réalisée</returns>
         public bool Delete(int identifiant)
         {
@@ -116,7 +116,7 @@ namespace LeagueOfLegend.DB.DAL
                 connection.Open();
 
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "DELETE FROM region WHERE Identifiant = @Identifiant;";
+                command.CommandText = "DELETE FROM role WHERE Identifiant = @Identifiant;";
 
                 command.Parameters.AddWithValue("Identifiant", identifiant);
 
@@ -127,9 +127,9 @@ namespace LeagueOfLegend.DB.DAL
         }
 
         /// <summary>
-        /// Supprime une region en BDD
+        /// Supprime un rôle en BDD
         /// </summary>
-        /// <param name="identifiant">L'objet region à supprimer</param>
+        /// <param name="identifiant">L'objet Rôle à supprimer</param>
         /// <returns>un booléen indiquant si la suppression s'est réalisée</returns>
         public bool Delete(Role role)
         {
@@ -137,11 +137,11 @@ namespace LeagueOfLegend.DB.DAL
         }
 
         /// <summary>
-        /// Modifie une region en BDD
+        /// Modifie un rôle en BDD
         /// </summary>
-        /// <param name="role">La region à insérer</param>
+        /// <param name="role">Le rôle à insérer</param>
         /// <returns>un booléen indiquant si la modification s'est réalisée</returns>
-        public bool Update(Region region)
+        public bool Update(Role role)
         {
             int nbLignes = 0;
             using (MySqlConnection c = new MySqlConnection(connectionString))
@@ -149,13 +149,13 @@ namespace LeagueOfLegend.DB.DAL
                 c.Open();
                 MySqlCommand command = c.CreateCommand();
                 command.CommandText = @"
-                        UPDATE region SET Identifiant = @Identifiant, Nom = @Nom
+                        UPDATE role SET Identifiant = @Identifiant, Nom = @Nom
                         WHERE Identifiant = @Identifiant
                     ";
 
-                command.Parameters.AddWithValue("Identifiant", region.Identifiant);
-                command.Parameters.AddWithValue("Nom", region.Nom);
-
+                command.Parameters.AddWithValue("Identifiant", role.Identifiant);
+                command.Parameters.AddWithValue("Nom", role.Nom);
+               
 
 
                 nbLignes = command.ExecuteNonQuery();

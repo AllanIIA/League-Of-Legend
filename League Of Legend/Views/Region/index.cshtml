@@ -1,14 +1,63 @@
-﻿@{
+﻿@using League_Of_Legend
+@using League_Of_Legend.ViewModels
+@using LeagueOfLegend.DB.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model RegionIndexViewModels
+
+@{
     Layout = "_Layout";
 }
 
-<!DOCTYPE html>
+<h1> @Model.Title </h1>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-</body>
-</html>
+<div class="ajout">
+    <a asp-controller="Region" asp-action="Create" class="btn btn-dark">
+        Ajouter une Région
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </a>
+
+</div>
+
+<div class="text-center">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        @foreach (Region region in Model.Regions)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(region.Identifiant.ToString(), "Region", "Regions", new { id = region.Identifiant })
+                </td>
+                <td>@region.Nom</td>
+                <td>
+                    @{
+                        Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+                        parameters.Add("id", region.Identifiant.ToString());
+                    }
+
+                    <a asp-controller="Region" asp-action="Delete" asp-all-route-data="parameters" class="btn btn-danger">
+                        Supprimer
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+
+
+                    <a asp-controller="Region" asp-action="Edit" asp-all-route-data="parameters" class="btn btn-success">
+                        Modifier
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

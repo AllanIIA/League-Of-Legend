@@ -1,0 +1,34 @@
+﻿@using League_Of_Legend
+@using League_Of_Legend.ViewModels
+@using LeagueOfLegend.DB.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model RegionViewModels
+@{
+    Layout = "_Layout";
+}
+<h1>Ajout d'une nouvelle Région</h1>
+
+<div class="container">
+    <form asp-action="Create" method="post">
+        @*Identifiant
+            Nom*@
+
+        <input asp-for="Identifiant" type="hidden" class="form-control" />
+        <div class="form-group">
+            <label asp-for="Nom" class="control-label">Nom</label>
+            <input asp-for="Nom" class="form-control" />
+            <span asp-validation-for="Nom" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Sauvegarder" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

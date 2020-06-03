@@ -76,3 +76,17 @@ body {
 
 /* Mon CSS
 -------------------------------------------------- */
+
+.ajout{
+    text-align:center; 
+    margin : 5px;
+}
+
+.ajout a{
+    text-decoration: none;
+    color: white;
+} 
+
+.ajout a:hover{
+    color: red;
+}

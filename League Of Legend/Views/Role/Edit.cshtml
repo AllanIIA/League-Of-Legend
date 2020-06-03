@@ -1,0 +1,31 @@
+﻿@using League_Of_Legend
+@using League_Of_Legend.ViewModels
+@using LeagueOfLegend.DB.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model RoleViewModels
+@{
+    Layout = "_Layout";
+}
+
+<h1>Edition d'un Rôle</h1>
+
+<div class="container">
+    <form asp-action="Edit" method="post">
+        @*Identifiant
+            Nom*@
+
+        <input asp-for="Identifiant" type="hidden" class="form-control" />
+        <div class="form-group">
+            <label asp-for="Nom" class="control-label"></label>
+            <input asp-for="Nom" class="form-control" />
+            <span asp-validation-for="Nom" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Sauvegarder" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
