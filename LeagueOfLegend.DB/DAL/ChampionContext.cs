@@ -6,7 +6,7 @@ using System.Text;
 
 namespace LeagueOfLegend.DB.DAL
 {
-    class ChampionContext
+    public class ChampionContext
     {
         private string connectionString;
 
@@ -26,7 +26,7 @@ namespace LeagueOfLegend.DB.DAL
                 connection.Open();
 
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT Identifiant, Nom, Surnom, identifiantRole, identifiantRegion FROM Champion;";
+                command.CommandText = "SELECT Identifiant, Nom, Surnom, identifiantRegion, identifiantRole  FROM champion;";
 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -36,8 +36,9 @@ namespace LeagueOfLegend.DB.DAL
                     c.Identifiant = reader.GetInt32("Identifiant");
                     c.Nom = reader.GetString("Nom");
                     c.Surnom = reader.GetString("Surnom");
-                    c.IdentifiantRole = reader.GetInt16("IdentifiantRole");
                     c.IdentifiantRegion = reader.GetInt16("IdentifiantRegion");
+                    c.IdentifiantRole = reader.GetInt16("IdentifiantRole");
+                    
 
                     champions.Add(c);
                 }
@@ -48,7 +49,7 @@ namespace LeagueOfLegend.DB.DAL
         }
 
         /// <summary>
-        /// Récupère une personne en BDD 
+        /// Récupère un Champion en BDD 
         /// </summary>
         /// <param name="identifiant">L'identifiant du champion</param>
         /// <returns>Le champion correspondant à l'identifiant</returns>
@@ -61,7 +62,7 @@ namespace LeagueOfLegend.DB.DAL
                 connection.Open();
 
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "SELECT Identifiant, Nom, Surnom, identifiantRole, identifiantRegion FROM Champion WHERE Identifiant = @Identifiant;";
+                command.CommandText = "SELECT Identifiant, Nom, Surnom, identifiantRegion, identifiantRole FROM champion WHERE Identifiant = @Identifiant;";
 
                 command.Parameters.AddWithValue("Identifiant", identifiant);
 
@@ -73,8 +74,9 @@ namespace LeagueOfLegend.DB.DAL
                     c.Identifiant = reader.GetInt32("Identifiant");
                     c.Nom = reader.GetString("Nom");
                     c.Surnom = reader.GetString("Surnom");
-                    c.IdentifiantRole = reader.GetInt16("IdentifiantRole");
                     c.IdentifiantRegion = reader.GetInt16("IdentifiantRegion");
+                    c.IdentifiantRole = reader.GetInt16("IdentifiantRole");
+                    
                 }
 
             }
@@ -87,9 +89,26 @@ namespace LeagueOfLegend.DB.DAL
         /// </summary>
         /// <param name="champion">Le champion à insérer</param>
         /// <returns>un booléen indiquant si l'insertion s'est réalisée</returns>
-        public bool Add(Champion champion)
+        public bool Insert(Champion champion)
         {
-            return true;
+            int nbLignes = 0;
+            using (MySqlConnection c = new MySqlConnection(connectionString))
+            {
+                c.Open();
+                MySqlCommand command = c.CreateCommand();
+                command.CommandText = "INSERT INTO champion(Identifiant, Nom, Surnom, IdentifiantRegion, IdentifiantRole) VALUE(@Identifiant, @Nom, @Surnom, @IdentifiantRegion, @IdentifiantRole)";
+
+                command.Parameters.AddWithValue("Identifiant", champion.Identifiant);
+                command.Parameters.AddWithValue("Nom", champion.Nom);
+                command.Parameters.AddWithValue("Surnom", champion.Surnom);
+                command.Parameters.AddWithValue("IdentifiantRole", champion.IdentifiantRole);
+                command.Parameters.AddWithValue("IdentifiantRegion", champion.IdentifiantRegion);
+
+
+                nbLignes = command.ExecuteNonQuery();
+
+            }
+            return nbLignes > 0;
         }
 
         /// <summary>
@@ -97,7 +116,7 @@ namespace LeagueOfLegend.DB.DAL
         /// </summary>
         /// <param name="identifiant">L'identifiant du champion à supprimer</param>
         /// <returns>un booléen indiquant si la suppression s'est réalisée</returns>
-        public bool Remove(int identifiant)
+        public bool Delete(int identifiant)
         {
             int nbLignes = 0;
             using (MySqlConnection connection = new MySqlConnection())
@@ -106,14 +125,14 @@ namespace LeagueOfLegend.DB.DAL
                 connection.Open();
 
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "DELETE FROM Champion WHERE Identifiant = @Identifiant;";
+                command.CommandText = "DELETE FROM champion WHERE Identifiant = @Identifiant;";
 
                 command.Parameters.AddWithValue("Identifiant", identifiant);
 
                 nbLignes = command.ExecuteNonQuery();
 
             }
-            return nbLignes == 1;
+            return nbLignes > 0;
         }
 
         /// <summary>
@@ -121,9 +140,9 @@ namespace LeagueOfLegend.DB.DAL
         /// </summary>
         /// <param name="identifiant">L'objet Champion à supprimer</param>
         /// <returns>un booléen indiquant si la suppression s'est réalisée</returns>
-        public bool Remove(Champion champion)
+        public bool Delete(Champion champion)
         {
-            return Remove(champion.Identifiant);
+            return Delete(champion.Identifiant);
         }
 
         /// <summary>
@@ -131,9 +150,29 @@ namespace LeagueOfLegend.DB.DAL
         /// </summary>
         /// <param name="champion">Le champion à insérer</param>
         /// <returns>un booléen indiquant si la modification s'est réalisée</returns>
-        public bool Modify(Champion champion)
+        public bool Update(Champion champion)
         {
-            return true;
+            int nbLignes = 0;
+            using (MySqlConnection c = new MySqlConnection(connectionString))
+            {
+                c.Open();
+                MySqlCommand command = c.CreateCommand();
+                command.CommandText = @"
+                        UPDATE champion SET Identifiant = @Identifiant, Nom = @Nom, Surnom = @Surnom,  IdentifiantRegion = @IdentifiantRegion, IdentifiantRole = @IdentifiantRole
+                        WHERE Identifiant = @Identifiant
+                    ";
+
+                command.Parameters.AddWithValue("Identifiant", champion.Identifiant);
+                command.Parameters.AddWithValue("Nom", champion.Nom);
+                command.Parameters.AddWithValue("Surnom", champion.Surnom);
+                command.Parameters.AddWithValue("IdentifiantRegion", champion.IdentifiantRegion);
+                command.Parameters.AddWithValue("IdentifiantRole", champion.IdentifiantRole);
+                
+
+                nbLignes = command.ExecuteNonQuery();
+
+            }
+            return nbLignes > 0;
         }
     }
 }

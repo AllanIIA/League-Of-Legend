@@ -1,14 +1,65 @@
-﻿@{
+﻿@using League_Of_Legend
+@using League_Of_Legend.ViewModels
+@using LeagueOfLegend.DB.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ChampionIndexViewModels
+
+@{
     Layout = "_Layout";
 }
 
-<!DOCTYPE html>
+<h1> @Model.Title </h1>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-</body>
-</html>
+<a asp-controller="Champion" asp-action="Create" class="btn btn-primary">Ajouter un Champion</a>
+
+<div class="text-center">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Surnom</th>
+                <th scope="col">IdentifiantRole</th>
+                <th scope="col">IdentifiantRegion</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        @foreach (Champion champion in Model.Champions)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(champion.Identifiant.ToString(), "Champion", "Champions", new { id = champion.Identifiant })
+                </td>
+                <td>@champion.Nom</td>
+                <td>@champion.Surnom</td>
+                <td>@champion.IdentifiantRegion</td>
+                <td>@champion.IdentifiantRole</td>
+                <td>
+                    @{
+                        Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+                        parameters.Add("id", champion.Identifiant.ToString());
+                    }
+
+
+
+                    <a asp-controller="Champion" asp-action="Delete" asp-all-route-data="parameters" class="btn btn-danger">
+                        Supprimer
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+
+
+                    <a asp-controller="Champion" asp-action="Edit" asp-all-route-data="parameters" class="btn btn-success">
+                        Modifier
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+
+
+
+        }
+    </table>
+</div>

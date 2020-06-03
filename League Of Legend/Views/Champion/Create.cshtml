@@ -1,0 +1,54 @@
+﻿@using League_Of_Legend
+@using League_Of_Legend.ViewModels
+@using LeagueOfLegend.DB.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model ChampionViewModels
+@{
+    Layout = "_Layout";
+}
+<h1>Ajout d'un nouveau Champion</h1>
+
+<div class="container">
+    <form asp-action="Create" method="post">
+        @*Identifiant
+            Nom
+            Surnom
+            IdentifiantRegion
+            IdentifiantRole*@
+
+        <input asp-for="Identifiant" type="hidden" class="form-control" />
+        <div class="form-group">
+            <label asp-for="Nom" class="control-label">Nom</label>
+            <input asp-for="Nom" class="form-control" />
+            <span asp-validation-for="Nom" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Surnom" class="control-label">Surnom</label>
+            <input asp-for="Surnom" class="form-control" />
+            <span asp-validation-for="Surnom" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="IdentifiantRegion" class="control-label">IdentifiantRegion</label>
+            <input asp-for="IdentifiantRegion" class="form-control" />
+            <span asp-validation-for="IdentifiantRegion" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="IdentifiantRole" class="control-label">IdentifiantRole</label>
+            <input asp-for="IdentifiantRole" class="form-control" />
+            <span asp-validation-for="IdentifiantRole" class="text-danger"></span>
+        </div>
+
+
+
+        <div class="form-group">
+            <input type="submit" value="Sauvegarder" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

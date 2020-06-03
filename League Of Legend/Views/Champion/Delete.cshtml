@@ -1,0 +1,29 @@
+﻿@using League_Of_Legend
+@using League_Of_Legend.ViewModels
+@using LeagueOfLegend.DB.Models
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model DeleteChampionViewModels
+
+@{
+    Layout = "_Layout";
+}
+
+<h1>Suppression d'un champion</h1>
+
+@if (Model.IsDeleted)
+{
+    <text>
+        La suppression a été effectuée
+    </text>
+}
+else
+{
+    <text>
+        Suppression impossible
+    </text>
+}
+
+
+
+
