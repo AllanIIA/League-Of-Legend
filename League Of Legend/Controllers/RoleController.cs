@@ -25,7 +25,7 @@ namespace League_Of_Legend.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Title = "Liste des Rôles";
+            ViewBag.Title = "Rôles";
 
             RoleIndexViewModels model = new RoleIndexViewModels();
             model.Title = "Les Rôles sont :";
@@ -41,13 +41,13 @@ namespace League_Of_Legend.Controllers
 
         private List<SelectListItem> roles()
         {
-            RegionContext regionContext = new RegionContext(connectionString);
+            RoleContext roleContext = new RoleContext(connectionString);
 
-            List<Region> regions = regionContext.GetAll();
+            List<Role> roles = roleContext.GetAll();
             List<SelectListItem> selectListItem = new List<SelectListItem>();
-            foreach (Region region in regions)
+            foreach (Role role in roles)
             {
-                selectListItem.Add(new SelectListItem(region.Nom, region.Identifiant.ToString()));
+                selectListItem.Add(new SelectListItem(role.Nom, role.Identifiant.ToString()));
             }
 
             return selectListItem;

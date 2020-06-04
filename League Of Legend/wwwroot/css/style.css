@@ -90,3 +90,11 @@ body {
 .ajout a:hover{
     color: red;
 }
+
+.menu{
+    text-align : center;
+}
+
+.nav-item a:hover {
+    color: red;
+}

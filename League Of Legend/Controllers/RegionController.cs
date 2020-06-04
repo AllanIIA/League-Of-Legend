@@ -25,7 +25,7 @@ namespace League_Of_Legend.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Title = "Liste des Régions";
+            ViewBag.Title = "Régions";
 
             RegionIndexViewModels model = new RegionIndexViewModels();
             model.Title = "Les Régions sont :";

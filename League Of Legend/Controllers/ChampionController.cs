@@ -25,7 +25,7 @@ namespace League_Of_Legend.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Title = "Liste des Champions";
+            ViewBag.Title = "Champions";
 
             ChampionIndexViewModels model = new ChampionIndexViewModels();
             model.Title = "Les Champions sont :";
@@ -41,13 +41,13 @@ namespace League_Of_Legend.Controllers
         
             private List<SelectListItem> champions()
         {
-            RegionContext regionContext = new RegionContext(connectionString);
+            ChampionContext championContext = new ChampionContext(connectionString);
 
-            List<Region> regions = regionContext.GetAll();
+            List<Champion> champions = championContext.GetAll();
             List<SelectListItem> selectListItem = new List<SelectListItem>();
-            foreach (Region region in regions)
+            foreach (Champion champion in champions)
             {
-                selectListItem.Add(new SelectListItem(region.Nom, region.Identifiant.ToString()));
+                selectListItem.Add(new SelectListItem(champion.Nom, champion.Identifiant.ToString()));
             }
 
             return selectListItem;
@@ -128,12 +128,6 @@ namespace League_Of_Legend.Controllers
         {
             ChampionContext championContext = new ChampionContext(connectionString);
             championModel.Region = champions();
-            //Rajouter des contrôles dynamiques
-
-            //if(bugModel.IdentifiantSeverite == 2)
-            //{
-            //    ModelState.AddModelError("IdentifiantSeverite", "Ne peut être égal à 2");
-            //}
 
             IActionResult retour = null;
             if (ModelState.IsValid)

@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <None Include="wwwroot\images\logo.png" />
-    <None Include="wwwroot\images\Mijote.png" />
   </ItemGroup>
 
   <ItemGroup>
